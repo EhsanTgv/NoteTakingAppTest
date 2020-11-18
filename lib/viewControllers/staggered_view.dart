@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import '../Models/Note.dart';
+
+import '../models/note.dart';
+import '../views/staggeredTile.dart';
 
 class StaggeredGridPage extends StatefulWidget {
   final notesViewType;

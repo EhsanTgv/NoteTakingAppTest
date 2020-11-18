@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import '../models/Note.dart';
+import '../models/note.dart';
+import '../viewControllers/note_page.dart';
 
 class MyStaggeredTile extends StatefulWidget {
   final Note note;
