@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../models/note.dart';
 import '../models/utility.dart';
+import '../models/sqlite_handler.dart';
 
 class NotePage extends StatefulWidget {
   final Note noteInEditing;

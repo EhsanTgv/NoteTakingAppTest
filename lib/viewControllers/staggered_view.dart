@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../models/note.dart';
 import '../views/staggeredTile.dart';
 import '../models/utility.dart';
+import '../models/sqlite_handler.dart';
 
 class StaggeredGridPage extends StatefulWidget {
   final notesViewType;
