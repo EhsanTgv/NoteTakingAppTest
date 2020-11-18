@@ -6,6 +6,7 @@ import '../models/note.dart';
 import '../views/staggeredTile.dart';
 import '../models/utility.dart';
 import '../models/sqlite_handler.dart';
+import 'home_page.dart';
 
 class StaggeredGridPage extends StatefulWidget {
   final notesViewType;
@@ -26,6 +27,7 @@ class _StaggeredGridPageState extends State<StaggeredGridPage> {
     this.notesViewType = widget.notesViewType;
   }
 
+
 @override void setState(fn) {
     super.setState(fn);
     this.notesViewType = widget.notesViewType;
@@ -33,29 +35,37 @@ class _StaggeredGridPageState extends State<StaggeredGridPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     GlobalKey _stagKey = GlobalKey();
+
+    print("update needed?: ${CentralStation.updateNeeded}");
     if(CentralStation.updateNeeded) {  retrieveAllNotesFromDatabase();  }
     return Container(child: Padding(padding:  _paddingForView(context) , child:
       new StaggeredGridView.count(key: _stagKey,
-        crossAxisSpacing: 6, mainAxisSpacing: 6,
+        crossAxisSpacing: 6,
+        mainAxisSpacing: 6,
         crossAxisCount: _colForStaggeredView(context),
         children: List.generate(_allNotesInQueryResult.length, (i){ return _tileGenerator(i); }),
       staggeredTiles: _tilesForView() ,
           ),
-        )
+      )
       );
   }
 
   int _colForStaggeredView(BuildContext context) {
-      if (widget.notesViewType == viewType.List) { return 1; }
-      // for width larger than 600, return 3 irrelevant of the orientation to accommodate more notes horizontally
-      return MediaQuery.of(context).size.width > 600 ? 3 : 2 ;
+
+      if (widget.notesViewType == viewType.List)
+      return 1;
+      // for width larger than 600 on grid mode, return 3 irrelevant of the orientation to accommodate more notes horizontally
+      return MediaQuery.of(context).size.width > 600 ? 3:2  ;
   }
 
  List<StaggeredTile> _tilesForView() { // Generate staggered tiles for the view based on the current preference.
-  return List.generate(_allNotesInQueryResult.length,(index){ return StaggeredTile.fit( 1 ); }
+  return List.generate(_allNotesInQueryResult.length,(index){ return StaggeredTile.fit(1); }
   ) ;
 }
+
 
 EdgeInsets _paddingForView(BuildContext context){
   double width = MediaQuery.of(context).size.width;
@@ -70,7 +80,7 @@ EdgeInsets _paddingForView(BuildContext context){
 }
 
 
- MyStaggeredTile _tileGenerator(int i){
+  MyStaggeredTile _tileGenerator(int i){
  return MyStaggeredTile(  Note(
       _allNotesInQueryResult[i]["id"],
       _allNotesInQueryResult[i]["title"] == null ? "" : utf8.decode(_allNotesInQueryResult[i]["title"]),
@@ -81,9 +91,10 @@ EdgeInsets _paddingForView(BuildContext context){
   );
   }
 
+
   void retrieveAllNotesFromDatabase() {
   // queries for all the notes from the database ordered by latest edited note. excludes archived notes.
-    var _testData = noteDB.testSelect();
+    var _testData = noteDB.selectAllNotes();
     _testData.then((value){
         setState(() {
           this._allNotesInQueryResult = value;
@@ -91,4 +102,6 @@ EdgeInsets _paddingForView(BuildContext context){
         });
     });
   }
+
+
 }
