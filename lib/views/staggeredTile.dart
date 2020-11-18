@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import '../models/note.dart';
 import '../viewControllers/note_page.dart';
+import '../models/utility.dart';
 
 class MyStaggeredTile extends StatefulWidget {
   final Note note;

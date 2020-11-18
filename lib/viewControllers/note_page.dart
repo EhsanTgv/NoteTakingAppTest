@@ -4,6 +4,7 @@ import 'package:share/share.dart';
 import 'package:flutter/services.dart';
 
 import '../models/note.dart';
+import '../models/utility.dart';
 
 class NotePage extends StatefulWidget {
   final Note noteInEditing;
